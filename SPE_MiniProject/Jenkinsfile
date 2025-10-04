@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                // Clone your GitHub repo using Jenkins credentials
+                git branch: 'main',
+                    url: 'https://github.com/Siddharth194/SPE-Mini-Project.git',
+                    credentialsId: 'github-token'  // replace with your Jenkins credential ID
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo "Running Maven clean & compile..."
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                echo "Running JUnit tests..."
+                sh 'mvn test'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                echo "Building JAR..."
+                sh 'mvn package'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Build, Test & Package Successful!"
+        }
+        failure {
+            echo "Build failed. Check console output."
+        }
+    }
+}
+
