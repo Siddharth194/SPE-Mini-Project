@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     triggers {
         githubPush()
     }
@@ -8,40 +8,46 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                    git branch: 'main',
-                        url: 'https://github.com/Siddharth194/SPE-Mini-Project.git',
-                        credentialsId: 'github_token'
+                git branch: 'main',
+                    url: 'https://github.com/Siddharth194/SPE-Mini-Project.git',
+                    credentialsId: 'github_token'
             }
         }
 
         stage('Build') {
             steps {
-                    echo "Running Maven clean & compile..."
+                echo "Running Maven clean & compile..."
+                dir('SPE_MiniProject') {
                     sh 'mvn clean compile'
+                }
             }
         }
 
         stage('Run Tests') {
             steps {
-                    echo "Running JUnit tests..."
+                echo "Running JUnit tests..."
+                dir('SPE_MiniProject') {
                     sh 'mvn test'
+                }
             }
         }
 
         stage('Package') {
             steps {
-                    echo "Building JAR..."
+                echo "Building JAR..."
+                dir('SPE_MiniProject') {
                     sh 'mvn package'
+                }
             }
         }
     }
 
     post {
         success {
-            echo "Build, Test & Package Successful!"
+            echo "✅ Build, Test & Package Successful!"
         }
         failure {
-            echo "Build failed. Check console output."
+            echo "❌ Build failed. Check console output."
         }
     }
 }
