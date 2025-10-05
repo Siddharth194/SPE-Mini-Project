@@ -8,39 +8,30 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                // Run Git checkout in the custom directory
-                dir('/home/siddharth/GitHub/SPE-Mini-Project') {
                     git branch: 'main',
                         url: 'https://github.com/Siddharth194/SPE-Mini-Project.git',
                         credentialsId: 'github_token'
-                }
             }
         }
 
         stage('Build') {
             steps {
-                dir('/home/siddharth/GitHub/SPE-Mini-Project') {
                     echo "Running Maven clean & compile..."
                     sh 'mvn clean compile'
-                }
             }
         }
 
         stage('Run Tests') {
             steps {
-                dir('/home/siddharth/GitHub/SPE-Mini-Project') {
                     echo "Running JUnit tests..."
                     sh 'mvn test'
-                }
             }
         }
 
         stage('Package') {
             steps {
-                dir('/home/siddharth/GitHub/SPE-Mini-Project') {
                     echo "Building JAR..."
                     sh 'mvn package'
-                }
             }
         }
     }
