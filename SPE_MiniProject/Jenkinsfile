@@ -67,11 +67,23 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy with Ansible') {
+            steps {
+                echo "Deploying container via Ansible..."
+                dir('SPE_MiniProject/Ansible') {
+                    // Run ansible-playbook without prompting for sudo password
+                    sh '''
+                    ansible-playbook -i inventory.ini docker_deploy.yml
+                    '''
+                }
+            }
+        }
     }
 
     post {
         success {
-            echo "Build, Test, Package & Docker Push Successful!"
+            echo "Build, Test, Docker Push & Deployment Successful!"
         }
         failure {
             echo "Build failed. Check console output."
