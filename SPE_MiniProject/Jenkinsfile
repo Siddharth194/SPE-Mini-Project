@@ -28,6 +28,15 @@ pipeline {
                 }
             }
         }
+        
+        stage('Run Tests') {
+            steps {
+                echo "Running JUnit tests..."
+                dir('SPE_MiniProject') {
+                    sh 'mvn test'
+                }
+            }
+        }
 
         stage('Package') {
             steps {
