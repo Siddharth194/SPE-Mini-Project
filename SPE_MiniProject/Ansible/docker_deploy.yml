@@ -1,0 +1,16 @@
+- name: Deploy Java Calculator Docker Project
+  hosts: myhosts
+  tasks:
+    - name: Pull Docker image
+      community.docker.docker_image:
+        name: siddharth194/spe-mini-project
+        tag: 1.0
+        source: pull
+
+    - name: Run Docker container
+      community.docker.docker_container:
+        name: spe-calculator
+        image: siddharth194/spe-mini-project:1.0
+        state: started
+        restart_policy: unless-stopped
+
