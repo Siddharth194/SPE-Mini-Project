@@ -8,7 +8,7 @@ pipeline {
     }
 
     triggers {
-        githubPush() // trigger build on GitHub push
+        githubPush()
     }
 
     stages {
@@ -72,7 +72,6 @@ pipeline {
             steps {
                 echo "Deploying container via Ansible..."
                 dir('SPE_MiniProject/Ansible') {
-                    // Run ansible-playbook without prompting for sudo password
                     sh '''
                     ansible-playbook -i inventory.ini docker_deploy.yml
                     '''
