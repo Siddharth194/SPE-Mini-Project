@@ -1,6 +1,5 @@
 package org.spe_mini;
 import java.util.Scanner;
-// comment for commit
 class ScientificCalculator
 {
     public static double sqrt(double x)

@@ -5,8 +5,8 @@ FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 # Copy your already built JAR into the container
-COPY target/SPE_Mini_Project-1.0-SNAPSHOT.jar app.jar
+COPY target/SPE_Mini_Project-1.0-SNAPSHOT.jar calculator.jar
 
 # Run the JAR
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "calculator.jar"]
 
